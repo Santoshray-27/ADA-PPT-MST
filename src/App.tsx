@@ -32,74 +32,83 @@ const edges: Edge[] = [
   { u: 'A', v: 'C', weight: 5 },  // Diagonal
 ];
 
-const code = `// 1. Structure to hold edge data
-STRUCTURE Edge:
-    integer source
-    integer destination
-    integer weight
+const code = `#include <iostream>
+#include <algorithm> // Required for the sort() function
 
-// 2. Sorting rule for edges
-FUNCTION CompareEdges(edge A, edge B):
-    RETURN A.weight < B.weight
+using namespace std;
 
-// Main Algorithm
-START MAIN:
-    // Define the graph
-    integer vertices = 4
-    integer totalEdges = 5
-    ARRAY parent[100]
-    
-    ARRAY edges = [
-        Edge(0, 1, 1),
-        Edge(0, 2, 3),
-        Edge(1, 2, 2),
-        Edge(1, 3, 4),
-        Edge(2, 3, 5)
-    ]
+// 1. Structure to represent a single connection (edge)
+struct Edge {
+    int source;
+    int destination;
+    int weight;
+};
 
-    // STEP 1: Initialize the Disjoint Set (each node is its own leader)
-    FOR i FROM 0 TO vertices - 1:
-        parent[i] = i
+// 2. Sorting rule: Tells the computer to put the smallest weight first
+bool compare(Edge a, Edge b) {
+    return a.weight < b.weight;
+}
 
-    // STEP 2: Sort edges by weight in ascending order
-    SORT edges USING CompareEdges
+int main() {
+    int parent[100]; // Array to keep track of the "leader" of each node
+    
+    // Total nodes and edges in our graph
+    int vertices = 4; 
+    int totalEdges = 5;
 
-    integer totalCost = 0
-    PRINT "Edges included in the MST:"
+    // Array of all edges: {source, destination, weight}
+    Edge edges[] = {
+        {0, 1, 1}, 
+        {0, 2, 3}, 
+        {1, 2, 2}, 
+        {1, 3, 4}, 
+        {2, 3, 5}
+    };
 
-    // STEP 3: Iterate through each edge starting from the lightest
-    FOR i FROM 0 TO totalEdges - 1:
-        
-        // Find the absolute root (leader) of the source node
-        integer root1 = edges[i].source
-        WHILE parent[root1] IS NOT EQUAL TO root1:
-            root1 = parent[root1]
-            
-        // Find the absolute root (leader) of the destination node
-        integer root2 = edges[i].destination
-        WHILE parent[root2] IS NOT EQUAL TO root2:
-            root2 = parent[root2]
+    // STEP 1: Initially, make every node its own leader
+    for (int i = 0; i < vertices; i++) {
+        parent[i] = i; 
+    }
 
-        // STEP 4: Check for cycles
-        // If the roots are different, adding this edge won't create a cycle
-        IF root1 IS NOT EQUAL TO root2 THEN
-            
-            // Connect the two sets (Union)
-            parent[root1] = root2
-            
-            // Add weight to the total cost
-            totalCost = totalCost + edges[i].weight
-            
-            // Print the selected edge
-            PRINT edges[i].source + " - " + edges[i].destination + " (Cost: " + edges[i].weight + ")"
-            
-        END IF
-        
-    END FOR
+    // STEP 2: Sort the edges by weight (cheapest edge comes first)
+    sort(edges, edges + totalEdges, compare);
 
-    PRINT "Total Minimum Cost: " + totalCost
+    int totalCost = 0; // This will store our final answer
+    cout << "Edges included in the MST:\\n";
 
-END MAIN`;
+    // STEP 3: Loop through all the sorted edges one by one
+    for (int i = 0; i < totalEdges; i++) {
+        
+        // --- Find the leader of the Source node ---
+        int root1 = edges[i].source;
+        while (parent[root1] != root1) { 
+            root1 = parent[root1]; 
+        }
+        
+        // --- Find the leader of the Destination node ---
+        int root2 = edges[i].destination;
+        while (parent[root2] != root2) {
+            root2 = parent[root2];
+        }
+
+        // STEP 4: If leaders are different, there is no cycle. Add the edge!
+        if (root1 != root2) {
+            
+            // Connect the two groups (make one leader the parent of the other)
+            parent[root1] = root2; 
+            
+            // Add this edge's cost to our total bill
+            totalCost = totalCost + edges[i].weight; 
+            
+            // Print the edge we just added
+            cout << edges[i].source << " - " << edges[i].destination 
+                 << " (Cost: " << edges[i].weight << ")\\n";
+        }
+    }
+    cout << "Total Minimum Cost: " << totalCost << "\\n";
+
+    return 0;
+}`;
 
 const sections = [
   { id: 'hero', label: 'Home' },
