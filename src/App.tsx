@@ -1877,78 +1877,75 @@ const ComplexitySection = memo(function ComplexitySection() {
       <h2 className="text-h1 mb-4">
         Time & Space <span style={{ color: 'var(--accent-cyan)' }}>Complexity</span>
       </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 mt-8">
+        <motion.div 
+          className="glass-card p-6 border-t-4 border-t-[var(--accent-blue)]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          <div className="flex items-center gap-3 mb-4 text-[var(--accent-blue)]">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" /></svg>
+            <h3 className="font-bold text-lg">Sorting</h3>
+          </div>
+          <code className="text-3xl font-mono font-bold text-[var(--text-primary)]">O(E log E)</code>
+          <p className="text-sm text-[var(--text-muted)] mt-2">Sorting all edges based on their weights using the standard sort function.</p>
+        </motion.div>
+
+        <motion.div 
+          className="glass-card p-6 border-t-4 border-t-[var(--accent-purple)]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          <div className="flex items-center gap-3 mb-4 text-[var(--accent-purple)]">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+            <h3 className="font-bold text-lg">Cycle Detection</h3>
+          </div>
+          <code className="text-3xl font-mono font-bold text-[var(--text-primary)]">O(E × V)</code>
+          <p className="text-sm text-[var(--text-muted)] mt-2">Worst-case time for finding roots in the simple parent array implementation.</p>
+        </motion.div>
+
+        <motion.div 
+          className="glass-card p-6 border-t-4 border-t-[var(--accent-cyan)]"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center gap-3 mb-4 text-[var(--accent-cyan)]">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+            <h3 className="font-bold text-lg">Space Used</h3>
+          </div>
+          <code className="text-3xl font-mono font-bold text-[var(--text-primary)]">O(V + E)</code>
+          <p className="text-sm text-[var(--text-muted)] mt-2">Storing nodes, edges, and the parent array for cycle detection tracking.</p>
+        </motion.div>
+      </div>
+
       <motion.div
-        className="glass-card overflow-hidden mb-10 mt-6"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        className="glass-card p-8 mb-10 bg-gradient-to-br from-[var(--bg-muted)] to-transparent border border-[var(--border-primary)]"
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
       >
-        <div className="p-6 md:p-8 border-b border-[var(--border-primary)] bg-gradient-to-r from-[var(--bg-muted)] to-transparent">
-          <h3 className="text-2xl font-extrabold mb-2 text-[var(--accent-purple)] flex items-center gap-3">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
-            Implementation Comparison
-          </h3>
-          <p className="text-base text-[var(--text-muted)]">A clear comparison between the Simple version and the Optimized version (Union-Find) of Cycle Detection.</p>
-        </div>
-
-        <div className="w-full overflow-x-auto custom-scrollbar hidden md:block">
-          <table className="w-full text-left border-collapse min-w-[600px]">
-            <thead>
-              <tr className="bg-black/5 dark:bg-white/5 border-b-2 border-[var(--border-primary)]">
-                <th className="p-5 font-bold uppercase tracking-wider text-[var(--text-secondary)] text-sm">Feature</th>
-                <th className="p-5 font-bold uppercase tracking-wider text-[var(--accent-cyan)] text-sm">Simple Version</th>
-                <th className="p-5 font-bold uppercase tracking-wider text-[var(--accent-purple)] text-sm">Optimized Version</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--border-primary)]">
-              <tr className="hover:bg-[var(--bg-hover)] transition-colors group">
-                <td className="p-5 text-base font-semibold text-[var(--text-primary)]">Cycle Detection</td>
-                <td className="p-5 text-base text-[var(--text-secondary)]">Basic while loop</td>
-                <td className="p-5 text-base font-bold text-[var(--accent-purple)] group-hover:scale-105 transition-transform origin-left">DSU (Path Compression + Rank)</td>
-              </tr>
-              <tr className="hover:bg-[var(--bg-hover)] transition-colors group">
-                <td className="p-5 text-base font-semibold text-[var(--text-primary)]">Worst Case Time</td>
-                <td className="p-5 text-base"><code className="bg-[var(--accent-red)]/10 text-[var(--accent-red)] px-2.5 py-1 rounded-md font-mono font-bold">O(E × V)</code></td>
-                <td className="p-5 text-base"><code className="bg-[var(--accent-purple)]/10 text-[var(--accent-purple)] px-2.5 py-1 rounded-md font-mono font-bold group-hover:scale-105 transition-transform inline-block">O(E log E)</code></td>
-              </tr>
-              <tr className="hover:bg-[var(--bg-hover)] transition-colors group">
-                <td className="p-5 text-base font-semibold text-[var(--text-primary)]">Performance</td>
-                <td className="p-5 text-base text-[var(--accent-red)]">Slow for large graphs</td>
-                <td className="p-5 text-base font-bold text-[var(--accent-green)] group-hover:scale-105 transition-transform origin-left">Extremely fast ⚡</td>
-              </tr>
-              <tr className="hover:bg-[var(--bg-hover)] transition-colors group">
-                <td className="p-5 text-base font-semibold text-[var(--text-primary)]">Space Used</td>
-                <td className="p-5 text-base"><code className="bg-black/10 dark:bg-white/10 px-2.5 py-1 rounded-md font-mono text-[var(--text-secondary)]">O(V + E)</code></td>
-                <td className="p-5 text-base"><code className="bg-black/10 dark:bg-white/10 px-2.5 py-1 rounded-md font-mono text-[var(--text-secondary)]">O(V + E)</code></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* Mobile Cards for Complexity */}
-        <div className="md:hidden divide-y divide-[var(--border-primary)]">
-          {[
-            { feature: 'Cycle Detection', simple: 'Basic while loop', optimized: 'DSU (Path + Rank)' },
-            { feature: 'Worst Case Time', simple: 'O(E × V)', optimized: 'O(E log E)' },
-            { feature: 'Performance', simple: 'Slow', optimized: 'Extremely fast ⚡' },
-            { feature: 'Space Used', simple: 'O(V + E)', optimized: 'O(V + E)' }
-          ].map((item, i) => (
-            <div key={i} className="p-5">
-              <h4 className="font-bold text-sm uppercase tracking-wider text-[var(--text-dimmed)] mb-3">{item.feature}</h4>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <span className="text-xs font-bold block mb-1 text-[var(--accent-cyan)]">Simple</span>
-                  <span className="text-sm font-semibold text-[var(--text-primary)]">{item.simple}</span>
-                </div>
-                <div>
-                  <span className="text-xs font-bold block mb-1 text-[var(--accent-purple)]">Optimized</span>
-                  <span className="text-sm font-semibold text-[var(--text-primary)]">{item.optimized}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-1 text-center md:text-left">
+            <h3 className="text-sm uppercase tracking-[0.2em] font-bold text-[var(--accent-cyan)] mb-2">Overall Complexity</h3>
+            <h4 className="text-4xl md:text-5xl font-black mb-4">Total Time: <span className="text-gradient-cyan">O(E × V)</span></h4>
+            <p className="text-body text-[var(--text-secondary)]">
+              Since we are using a simple parent array without advanced optimizations like Path Compression or Union by Rank, the worst-case complexity is dominated by the cycle detection process.
+            </p>
+          </div>
+          <div className="shrink-0 p-8 rounded-full bg-[var(--accent-cyan)]/10 border-4 border-[var(--accent-cyan)]/20 shadow-[0_0_50px_rgba(34,211,238,0.15)]">
+            <svg className="w-16 h-16 text-[var(--accent-cyan)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
         </div>
       </motion.div>
+
 
       <motion.div
         className="glass-card p-6"
